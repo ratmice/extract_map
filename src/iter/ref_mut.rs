@@ -3,9 +3,8 @@ use std::{
     hash::{BuildHasher, Hash},
 };
 
-use gat_lending_iterator::LendingIterator;
-
 use crate::{mut_guard::MutGuard, ExtractKey, ExtractMap};
+use lender::prelude::*;
 
 #[must_use = "Iterators do nothing if not consumed"]
 pub struct IterMut<'a, K, V, S> {
@@ -25,15 +24,22 @@ where
     }
 }
 
-impl<'map, K, V, S> LendingIterator for IterMut<'map, K, V, S>
+impl<'lend, 'this, K, V, S> Lending<'lend> for IterMut<'this, K, V, S>
 where
     K: Hash + Eq,
     V: ExtractKey<K>,
     S: BuildHasher,
 {
-    type Item<'item> = MutGuard<'item, K, V, S> where Self: 'item;
+    type Lend = MutGuard<'lend, K, V, S>;
+}
 
-    fn next(&mut self) -> Option<Self::Item<'_>> {
+impl<'lend, K, V, S> Lender for IterMut<'lend, K, V, S>
+where
+    K: Hash + Eq,
+    V: ExtractKey<K>,
+    S: BuildHasher,
+{
+    fn next(&mut self) -> Option<Lend<'_, Self>> {
         let key = self.keys.pop_front()?;
         self.map.get_mut(&key)
     }

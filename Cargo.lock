@@ -6,22 +6,36 @@ version = 3
 name = "extract_map"
 version = "0.1.0"
 dependencies = [
- "gat-lending-iterator",
+ "lender",
  "serde",
  "serde_json",
 ]
-
-[[package]]
-name = "gat-lending-iterator"
-version = "0.1.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "42327bb9f2aad5b6400dea3e3aea3a4959529387186d3dc27c08d401c808fda9"
 
 [[package]]
 name = "itoa"
 version = "1.0.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b1a46d1a171d865aa5f83f92695765caa047a9b4cbae2cbf37dbd613a793fd4c"
+
+[[package]]
+name = "lender"
+version = "0.2.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "39b1f7f753a5da003547d93e9e8f6542e81db06adad15dda47a9cd12559ab2e0"
+dependencies = [
+ "lender-derive",
+]
+
+[[package]]
+name = "lender-derive"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "556faf0c9adb22669a5f9f6b4ed804c8048d205dcd00fadd463affbb02931d26"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
 
 [[package]]
 name = "proc-macro2"

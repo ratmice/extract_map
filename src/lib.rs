@@ -16,7 +16,7 @@ mod mut_guard;
 mod value_wrapper;
 
 #[cfg(feature = "iter_mut")]
-pub use gat_lending_iterator::LendingIterator;
+pub use lender::Lender;
 
 pub trait ExtractKey<K> {
     fn extract_key(&self) -> &K;

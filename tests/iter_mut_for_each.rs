@@ -1,4 +1,5 @@
-use extract_map::{ExtractKey, ExtractMap, LendingIterator};
+#![cfg(feature = "iter_mut")]
+use extract_map::{ExtractKey, ExtractMap, Lender};
 
 struct User {
     id: u64,
@@ -14,5 +15,8 @@ impl ExtractKey<u64> for User {
 #[test]
 pub fn test() {
     let mut map = ExtractMap::<u64, User>::new();
-    map.iter_mut().for_each(|_| {});
+    let iter_mut = map.iter_mut();
+    // Should compile_fail.
+    // drop(map);
+    iter_mut.for_each(|_| {});
 }
